@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     bio: { type: String },
     gender: { type: String },
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     image: { type: String },
     location: { type: String },
     active: { type: Boolean, required: true, default: true },
