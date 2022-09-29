@@ -5,7 +5,10 @@ import {
   deleteSocialSchema,
 } from "./schema/social.schema";
 import { Express } from "express";
-import { createUserHandler, getOwnUserHandler } from "./controller/user.controller";
+import {
+  createUserHandler,
+  getOwnUserHandler,
+} from "./controller/user.controller";
 import {
   createSocialHandler,
   updateSocialHandler,
@@ -25,9 +28,19 @@ import {
 } from "./controller/setting.controller";
 import { createUserSchema } from "./schema/user.schema";
 import { createSessionSchema } from "./schema/session.schema";
-import { createSettingSchema, updateSettingSchema } from "./schema/setting.schema";
+import {
+  createSettingSchema,
+  updateSettingSchema,
+} from "./schema/setting.schema";
 import validateResource from "./middleware/validateResource";
 import requireUser from "./middleware/requiredUser";
+import {
+  dislikeAUserHandler,
+  getAllMatchedUsersHandler,
+  likeAUserHandler,
+} from "./controller/like.controller";
+import { getAllLikedUsers } from "./service/like.service";
+import { likeActionSchema } from "./schema/like.schema";
 
 function routes(app: Express) {
   app.post("/api/users", validateResource(createUserSchema), createUserHandler);
@@ -72,5 +85,19 @@ function routes(app: Express) {
     updateSettingHandler
   );
   app.delete("/api/settings", requireUser, deleteSettingsHandler);
+
+  // LIKE route
+  app.get("/api/like", requireUser, getAllLikedUsers);
+  app.put(
+    "/api/like",
+    [requireUser, validateResource(likeActionSchema)],
+    likeAUserHandler
+  );
+  app.delete(
+    "/api/like",
+    [requireUser, validateResource(likeActionSchema)],
+    dislikeAUserHandler
+  );
+  app.get("/api/like/matched", requireUser, getAllMatchedUsersHandler);
 }
 export default routes;
