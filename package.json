@@ -5,7 +5,11 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/app.ts"
+    "build": "npx tsc",
+    "start": "node dist/src/app.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "deploy": "git add . && git commit -m Heroku && git push heroku master"
+
   },
   "keywords": [],
   "author": "",
