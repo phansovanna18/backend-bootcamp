@@ -29,7 +29,7 @@ app.get("/", (req: Request, res: Response) => {
   return res.send("Hello world...");
 });
 
-app.listen(port, async () => {
+app.listen(process.env.PORT||port, async () => {
   await connect();
   log.info(`App running at http://localhost:${port}`);
   routes(app);
