@@ -17,7 +17,11 @@ export async function createSocialHandler(
 ) {
   const userId = res.locals.user._id;
   const body = req.body;
-  const social = await createSocial({ ...body, user: userId });
+  const social = await createSocial({
+    ...body, user: userId,
+    facebook_id: "",
+    instragram_id: ""
+  });
   return res.send(social);
 }
 export async function getSocialHandler(req: Request, res: Response) {

@@ -45,6 +45,7 @@ import { likeActionSchema } from "./schema/like.schema";
 function routes(app: Express) {
   app.post("/api/users", validateResource(createUserSchema), createUserHandler);
   app.get("/api/users/me", requireUser, getOwnUserHandler);
+  app.patch("/api/users/me", requireUser, getOwnUserHandler);
   app.post(
     "/api/sessions",
     validateResource(createSessionSchema),

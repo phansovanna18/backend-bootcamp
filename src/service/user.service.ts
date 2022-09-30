@@ -1,7 +1,12 @@
-import { DocumentDefinition, FilterQuery } from "mongoose";
 import UserModel from "../models/user.model";
 import { omit } from "lodash";
 import { UserDocument } from '../documents/users.document'
+import {
+  DocumentDefinition,
+  FilterQuery,
+  QueryOptions,
+  UpdateQuery,
+} from "mongoose";
 
 export async function createUser(
   input: DocumentDefinition<
@@ -32,4 +37,12 @@ export async function validatePassword({
 
 export async function findUser(query: FilterQuery<UserDocument>) {
   return UserModel.findOne(query).lean();
+}
+
+export async function findAndUpdateUser(
+  query: FilterQuery<UserDocument>,
+  update: UpdateQuery<UserDocument>,
+  options: QueryOptions
+) {
+  return UserModel.findOneAndUpdate(query, update, options);
 }
